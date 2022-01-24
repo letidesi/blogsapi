@@ -1,6 +1,5 @@
 const Posts = require("../models/Posts");
 const mongoose = require("mongoose");
-const { query } = require("express");
 
 const createPosts = async (req, res) => {
   const { title, content } = req.body;
@@ -145,21 +144,6 @@ const updatePost = async (req, res) => {
 
 const searchPostByTitleOrContent = async (req, res) => {
   try {
-    const postFound = await Posts.find({
-      $or: [{ title: req.query.q }, { content: req.query.a }],
-    }).populate("userId", "-password");
-
-    res.status(200).json(postFound);
-  } catch (e) {
-    res.status(500).json({
-      message: e.message,
-    });
-  }
-};
-
-const search = async (req, res) => {
-  console.log("okk")
-  try {
     const query = req.query.q
     const searchByProperty = property =>  new RegExp(query, "ig").test(property)
     const postsFound = await Posts.find().populate("userId", "-password")
@@ -201,6 +185,6 @@ module.exports = {
   listPosts,
   listPostById,
   updatePost,
-  searchPostByTitleOrContent: search,
+  searchPostByTitleOrContent,
   deletePost,
 };
