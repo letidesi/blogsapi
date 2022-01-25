@@ -1,4 +1,3 @@
-const Posts = require("../models/Posts");
 const mongoose = require("mongoose");
 const postService = require("../service/postService");
 

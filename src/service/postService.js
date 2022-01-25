@@ -4,20 +4,10 @@ const BadRequestException = require("../exception/BadRequestException");
 const PostNotFoundException = require("../exception/PostNotFoundException");
 const UnauthorizedException = require("../exception/UnauthorizedExeption");
 
-const isEmpty = (value) => !value || value.trim() === "";
+const {
+  isEmptyOrNull
+} = require("../helpers/validationHelpers");
 
-const isRequireBody = (body) => {
-  const { title, content } = body;
-  if (isEmpty(title)) throw new BadRequestException('"title" is required.');
-
-  if (isEmpty(content)) throw new BadRequestException('"content" is required.');
-  return body;
-};
-
-const userUnauthorized = (authorizationId, userId) => {
-  if (authorizationId != userId)
-    throw new UnauthorizedException("Usuário não autorizado.");
-};
 
 const createPost = async (body) => {
   const { title, content, userId } = isRequireBody(body);
@@ -60,15 +50,6 @@ const listPosts = async () => {
   });
 };
 
-const findById = async (postId) => {
-  try {
-    const postFound = await PostSchema.findById(postId).populate("userId");
-    if (postFound == null) throw new PostNotFoundException();
-    return postFound;
-  } catch (error) {
-    throw new PostNotFoundException("Post não existe.");
-  }
-};
 
 const listPostById = async (postId) => {
   const postFound = await findById(postId);
@@ -125,6 +106,31 @@ const deletePost = async (postId, authorizationId) => {
   userUnauthorized(authorizationId, postFound.userId);
 
   await postFound.delete();
+};
+
+const isRequireBody = (body) => {
+  const { title, content } = body;
+  if (isEmptyOrNull(title)) throw new BadRequestException('"title" is required.');
+
+  if (isEmptyOrNull(content)) throw new BadRequestException('"content" is required.');
+
+  return body;
+};
+
+const userUnauthorized = (authorizationId, userId) => {
+  if (authorizationId != userId)
+    throw new UnauthorizedException("Usuário não autorizado.");
+};
+
+
+const findById = async (postId) => {
+  try {
+    const postFound = await PostSchema.findById(postId).populate("userId");
+    if (postFound == null) throw new PostNotFoundException();
+    return postFound;
+  } catch (error) {
+    throw new PostNotFoundException("Post não existe.");
+  }
 };
 
 module.exports = {
