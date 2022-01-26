@@ -49,7 +49,7 @@ const listUserById = async (req, res, next) => {
 
 const deleteUser = async (req, res, next) => {
   try {
-    const userId = req.params.id
+    const userId = req.params.id;
     await userService.deleteUser(userId);
 
     res.status(204).json();

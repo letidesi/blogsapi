@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Post service should returns throw  1`] = `"Cannot destructure property 'title' of 'body' as it is undefined."`;
+
+exports[`Post service should user is authorized  1`] = `"Usuário não autorizado."`;

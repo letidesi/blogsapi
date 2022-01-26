@@ -140,4 +140,7 @@ module.exports = {
   updatePost,
   searchByTitleOrContent,
   deletePost,
+  isRequireBody,
+  findById,
+  userUnauthorized
 };
