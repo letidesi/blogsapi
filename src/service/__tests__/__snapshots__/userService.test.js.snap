@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User service should returns throw  1`] = `"Cannot destructure property 'displayName' of 'body' as it is undefined."`;

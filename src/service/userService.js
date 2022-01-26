@@ -131,4 +131,8 @@ module.exports = {
   listUsers,
   listUserById,
   deleteUser,
+  isRequireBody,
+  isValidationEmail,
+  isValidationPassword,
+  conflictUser
 };

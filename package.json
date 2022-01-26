@@ -4,8 +4,8 @@
   "description": "Você vai arquiteturar e desenvolver uma API de um CRUD de posts de blog. Começando pela API, você vai desenvolver alguns endpoints (seguindo os principios do REST) que estarão conectados ao seu banco de dados.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "test": "rm -rf .env && cat .env.test >> .env && npx jest --colors --detectOpenHandles --config=jest.config.js",
+    "dev": "rm -rf .env && cat .env.dev >> .env && nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "mongoose": "^6.1.7"
   },
   "devDependencies": {
+    "jest": "^27.4.7",
     "nodemon": "^2.0.15"
   }
 }
